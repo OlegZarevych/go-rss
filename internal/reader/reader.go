@@ -10,11 +10,7 @@ const Url = "https://dou.ua/lenta/tags/RSS/feed/"
 
 func ReadRss() string {
 
-	resp := getResponse()
-
-	body := parseResponse(resp)
-
-	return string(body)
+	return string(ReadRssBytes())
 
 }
 
