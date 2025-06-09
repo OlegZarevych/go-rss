@@ -18,6 +18,15 @@ func ReadRss() string {
 
 }
 
+func ReadRssBytes() []byte {
+
+	resp := getResponse()
+
+	body := parseResponse(resp)
+
+	return body
+}
+
 func getResponse() *http.Response {
 
 	resp, err := http.Get(Url)
