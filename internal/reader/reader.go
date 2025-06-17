@@ -16,34 +16,42 @@ func ReadRss() string {
 
 func ReadRssBytes() []byte {
 
-	resp := getResponse()
+	resp, err := getResponse()
+	if err != nil {
+		panic(err)
+	}
 
-	body := parseResponse(resp)
+	body, err := parseResponse(resp)
+	if err != nil {
+		panic(err)
+	}
 
 	return body
 }
 
-func getResponse() *http.Response {
+func getResponse() (*http.Response, error) {
 
 	resp, err := http.Get(Url)
 
 	if err != nil {
 		fmt.Println(err)
+		return nil, err
 	}
 
 	if resp.StatusCode != 200 {
 		fmt.Errorf("Status Code is %d, but should be 200", resp.StatusCode)
 	}
 
-	return resp
+	return resp, nil
 }
 
-func parseResponse(resp *http.Response) []byte {
+func parseResponse(resp *http.Response) ([]byte, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println(err)
+		return nil, err
 	}
 	resp.Body.Close()
 
-	return body
+	return body, nil
 }
