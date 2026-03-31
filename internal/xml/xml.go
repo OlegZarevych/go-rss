@@ -27,6 +27,8 @@ type Item struct {
 	Guid        string `xml:"guid"`
 }
 
+// NewXml parses the provided XML-encoded byte slice and returns an Xml struct
+// representing the RSS document.
 func NewXml(bytes []byte) Xml {
 	var doc Xml
 	xml.Unmarshal(bytes, &doc)

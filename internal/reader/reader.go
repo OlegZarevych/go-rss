@@ -8,12 +8,14 @@ import (
 
 const Url = "https://dou.ua/lenta/tags/RSS/feed/"
 
+// ReadRss fetches the RSS feed from the configured URL and returns it as a string.
 func ReadRss() string {
 
 	return string(ReadRssBytes())
 
 }
 
+// ReadRssBytes fetches the RSS feed from the configured URL and returns its raw content as a byte slice.
 func ReadRssBytes() []byte {
 
 	resp := getResponse()
@@ -23,6 +25,8 @@ func ReadRssBytes() []byte {
 	return body
 }
 
+// getResponse performs an HTTP GET request to the RSS feed URL and returns the HTTP response.
+// It prints an error message if the request fails or the status code is not 200.
 func getResponse() *http.Response {
 
 	resp, err := http.Get(Url)
@@ -38,6 +42,8 @@ func getResponse() *http.Response {
 	return resp
 }
 
+// parseResponse reads the body of the given HTTP response and returns it as a byte slice.
+// It closes the response body after reading and prints an error message if reading fails.
 func parseResponse(resp *http.Response) []byte {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
